@@ -35,19 +35,19 @@ public class DemoResource {
 	@Named("ContractServiceImpl2")
 	private ContractService contractService;
 	@Inject
-	List<String> stringList;
+	private List<String> stringList;
 
 	@Inject
 	@Any
-	Instance<ContractService> contracts;
+	private Instance<ContractService> contracts;
 
 	@Inject
 	@QualifierService1
-	QualifierService qualifierService;
+	private QualifierService qualifierService;
 
 	//http://localhost:8080/cdibeans/api/demo
 	@GET
-	public void getDemo(@Context HttpServletRequest request) {
+	public String getDemo(@Context HttpServletRequest request) {
 		contracts.forEach(c -> logger.info(c.getClass().getSimpleName()));
 		stringList.forEach(logger::info);
 		logger.info(contractService.getClass().getSimpleName());
@@ -55,6 +55,7 @@ public class DemoResource {
 		logger.info(this.toString());
 		logger.info(stringService.toString());
 		contractService.foo();
+		return "hello";
 	}
 
 }
